@@ -5,7 +5,6 @@ pipeline {
     parameters { 
         choice(name: 'CHOICES', choices: ['one', 'two', 'three'], description: 'test') 
     }
-    def PRS = []
     stage('Deploy k8s') {
         // if project is private, add authrization header here.
         println " Deploy k8s ... "
