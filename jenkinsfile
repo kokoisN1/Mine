@@ -3,24 +3,17 @@ node {
         label 'master'
     }
     def PRS = []
-    stage('QueryGithubPR') {
-        skipDefaultCheckout()
+    stage('BuildNGINXDocker') {
         // if project is private, add authrization header here.
-        pullreqsjson = sh(returnStdout: true, script: 'curl https://api.github.com/repos/kokoisN1/MyJenkins/pulls').trim()
-        PRS = get_open_PR(pullreqsjson)
-        if (PRS != []) {
-            println "new/open pull/merge reuests found: " + PRS
-            deleteDir()
-            checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'kokoisN1', url: 'https://github.com/kokoisN1/MyJenkins.git']]])
-        } else {
-            println "No new/open pull/merge reuests found."
-        }
-    }
-    stage('RunPythonScript') {
-        if (PRS == []) {
-            println "No new/open PR/merge requests found, not ruuning python script."
-        } else {
-            sh "docker run --rm -v /var/jenkins_home:/var/jenkins_home  --name my-running-script python:3 python $WORKSPACE/main.py"
+        println " bulding docker ... "
+        sh "docker build -t my-nginx ."
+        println " ECR login ... "
+        sh "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 591994479995.dkr.ecr.us-east-2.amazonaws.com"
+        println " ECR tag ... "
+        sh "docker tag my-nginx:latest 591994479995.dkr.ecr.us-east-2.amazonaws.com/my-nginx:latest"
+        println " ECR push ... "
+        sh "docker push 591994479995.dkr.ecr.us-east-2.amazonaws.com/my-nginx:latest"
+        println " Done. "
         }
     }
 } // node
