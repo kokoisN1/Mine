@@ -1,3 +1,4 @@
+parameters { choice(name: 'CHOICES', choices: ['one', 'two', 'three'], description: '') }
 node {
     agent {
         label 'master'
