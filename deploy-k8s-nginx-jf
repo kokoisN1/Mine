@@ -11,9 +11,11 @@ pipeline {
     }
     stages {
         stage('Deploy k8s') {
-            // if project is private, add authrization header here.
-            echo " Deploy k8s ... "
-            echo " Done. "
+            steps {
+                // if project is private, add authrization header here.
+                echo " Deploy k8s ... "
+                echo " Done. "
+            }
         }
     }
 } // node
