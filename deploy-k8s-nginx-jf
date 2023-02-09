@@ -1,7 +1,10 @@
-parameters { choice(name: 'CHOICES', choices: ['one', 'two', 'three'], description: '') }
+
 node {
     agent {
         label 'master'
+    }
+    parameters { 
+        choice(name: 'CHOICES', choices: ['one', 'two', 'three'], description: 'test') 
     }
     def PRS = []
     stage('Deploy k8s') {
