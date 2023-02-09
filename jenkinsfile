@@ -2,6 +2,7 @@ node {
     // scripted 
     stage('BuildNGINXDocker') {
         // if project is private, add authrization header here.
+        checkout scmGit(branches: [[name: '*/main']], browser: github(''), extensions: [], userRemoteConfigs: [[credentialsId: 'kokoisN1', url: 'git@github.com:kokoisN1/Mine.git']])
         println " bulding docker ... "
         sh "docker build -t my-nginx ."
         println " ECR login ... "
