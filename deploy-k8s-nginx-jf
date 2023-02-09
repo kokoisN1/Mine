@@ -12,8 +12,8 @@ pipeline {
     stages {
         stage('Deploy k8s') {
             // if project is private, add authrization header here.
-            println " Deploy k8s ... "
-            println " Done. "
+            echo " Deploy k8s ... "
+            echo " Done. "
         }
     }
 } // node
