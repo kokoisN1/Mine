@@ -7,6 +7,5 @@ node {
         // if project is private, add authrization header here.
         println " Deploy k8s ... "
         println " Done. "
-        }
     }
 } // node
