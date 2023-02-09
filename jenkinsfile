@@ -1,6 +1,5 @@
 node {
     // scripted 
-    agent any
     stage('BuildNGINXDocker') {
         // if project is private, add authrization header here.
         println " bulding docker ... "
