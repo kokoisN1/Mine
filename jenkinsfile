@@ -14,30 +14,3 @@ node {
         println " Done. "
     }
 } // node
-
-def get_open_PR(String json_to_search){
-    def ret = []
-    String to_find = 'title'
-    String to_find_state = 'state'
-    int index = json_to_search.indexOf(to_find)
-    int state_index = json_to_search.indexOf(to_find_state)
-    while (index > -1) {
-        pair = [:]
-        // the "4" below is due to the '": "' string to jump between the JSON 
-        // key and value fields.
-        start_of_value = index + 4 + to_find.length()
-        end_of_value = json_to_search.indexOf("\"", start_of_value)
-        PR_name = json_to_search.substring(start_of_value, end_of_value)
-
-        start_of_state_value = state_index + 4 + to_find.length()
-        end_of_state_value = json_to_search.indexOf("\"", start_of_state_value)
-        PR_state = json_to_search.substring(start_of_state_value, end_of_state_value)
-
-        if (PR_state == 'open') {
-            ret << PR_name
-        }
-        index  = json_to_search.indexOf(to_find, index + to_find.length())
-        state_index  = json_to_search.indexOf(to_find_state, state_index + to_find_state.length())
-    }
-    return ret 
-} // get_open_PR()
