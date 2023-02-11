@@ -11,9 +11,9 @@ node {
         //sh "echo $(aws ecr get-login-password --region us-east-2)"
         //sh "docker login --username AWS -p \${(aws ecr get-login-password --region us-east-2)} 591994479995.dkr.ecr.us-east-2.amazonaws.com"
         println " ECR tag ... "
-        sh "docker tag my-nginx:latest 591994479995.dkr.ecr.us-east-2.amazonaws.com/my-nginx:latest,${BUILDNUMBER}"
+        sh "docker tag my-nginx:latest 591994479995.dkr.ecr.us-east-2.amazonaws.com/my-nginx:latest,${BUILD_NUMBER}"
         println " ECR push ... "
-        sh "docker push 591994479995.dkr.ecr.us-east-2.amazonaws.com/my-nginx:latest,${BUILDNUMBER}"
+        sh "docker push 591994479995.dkr.ecr.us-east-2.amazonaws.com/my-nginx:latest,${BUILD_NUMBER}"
         println " Done. "
     }
 } // node
