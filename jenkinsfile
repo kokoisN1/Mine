@@ -4,8 +4,6 @@ node {
         // if project is private, add authrization header here.
         checkout scmGit(branches: [[name: '*/main']], browser: github(''), extensions: [], userRemoteConfigs: [[credentialsId: 'kokoisN1', url: 'git@github.com:kokoisN1/Mine.git']])
         println " bulding docker ... "
-        sh "which docker"
-        sh "bash -c which docker"
         sh "docker build -t my-nginx ."
         println " ECR login ... "
         sh "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 591994479995.dkr.ecr.us-east-2.amazonaws.com"
